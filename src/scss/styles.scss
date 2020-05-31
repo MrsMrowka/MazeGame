@@ -7,7 +7,7 @@ body{
   font-family: $font;
 }
 .game{
-  width:100%;
+  width: $fullScreen;
   position: absolute;
   z-index: 1;
 }
@@ -25,7 +25,7 @@ img {
   position: absolute;
   background-color: $bgColor;
   height: 110%;
-  width: 100%;
+  width: $fullScreen;
   z-index: 2;
   display: none;
 }

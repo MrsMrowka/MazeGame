@@ -70,6 +70,7 @@ class Game {
     constructor() {
         this.startTime = new Date().getTime();
         this.keyObtained = false;
+        // Randomly assing playable path
         switch (handleMaze.pathRand) {
             case 1:
                 this.randGameObjPosition(5 * canvasDrawers.objectSize, 8 * canvasDrawers.objectSize, canvasDrawers.objectSize, canvasDrawers.objectSize, 9 * canvasDrawers.objectSize, 15 * canvasDrawers.objectSize);
@@ -200,6 +201,7 @@ class Game {
     checkVictoryCondidtions() {
         const endTime: number = new Date(this.startTime).getTime();
         const now: number = new Date().getTime();
+
         if (
             canvasDrawers.isOverlapping(this.ball, this.hole) &&
             this.keyObtained

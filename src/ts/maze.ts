@@ -7,15 +7,14 @@ export class createMaze {
     maze: number[][];
     pathRand: number;
     constructor() {
-
         this.maze = new Array(16);
 
-        // loop to create 2D array using 1D array 
+        // Loop to create 2D array using 1D array 
         for (let i = 0; i < 16; i++) {
             this.maze[i] = new Array(10);
         }
 
-        // loop to randomly fill array 
+        // Loop to randomly fill array 
         for (let i = 0; i < this.maze.length; i++) {
             for (let j = 0; j < this.maze[i].length; j++) {
                 let randNum: number = Math.random();
@@ -29,6 +28,7 @@ export class createMaze {
             }
         }
 
+        // Avaliable playable paths
         let path1: number[][] = [
             [0, 0, 1, 1, 0, 0, 0, 1, 1, 1],
             [0, 0, 0, 0, 0, 1, 0, 1, 1, 1],
@@ -105,7 +105,7 @@ export class createMaze {
             [0, 0, 1, 1, 1, 1, 1, 1, 1, 1]
         ]
 
-        // loop to randomly assign playable path
+        // Loop to randomly assign playable path
         this.pathRand = Math.floor(Math.random() * 4) + 1;
 
         for (let i = 0; i < this.maze.length; i++) {
