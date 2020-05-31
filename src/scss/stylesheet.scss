@@ -1,0 +1,61 @@
+body{
+  margin-top: 0;
+  margin-left: 0;
+  // background-image: url('./src/scss/bg.png');
+  background-color: lightgrey;
+  font-family: sans-serif;
+}
+.game{
+  width:100%;
+  position: absolute;
+  z-index: 1;
+}
+canvas {
+  display: block;
+  margin: 0 auto;
+  border: 1px solid black;
+  background: white;
+}
+img {
+  display: none;
+}
+.popUpTab{
+  position: absolute;
+  // background-image: url('./bg.png');
+  background-color: lightgrey;
+  height: 110%;
+  width: 100%;
+  z-index: 2;
+  display: none;
+}
+@media (max-width: 1000px) { 
+  .wrapper{
+      margin-top: 30%;
+  }
+}
+@media (max-width: 600px) { 
+  .wrapper{
+      margin-top: 60%;
+  }
+}
+.title{
+  display: table;
+  margin: 18% auto 10%;
+  font-size: 50px;
+}
+.yourTime{
+  display: table;
+  margin: 2% auto;
+  font-size: 35px;
+}
+.restart{
+  display: table;
+  margin: 0 auto;
+  padding: 20px 35px 20px 35px;
+  width: auto;
+  height: auto;
+  line-height: 20px;
+  color: rgb(255, 255, 255);
+  border-radius: 10px;
+  background-color: #011627
+}
