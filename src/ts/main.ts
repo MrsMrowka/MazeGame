@@ -7,15 +7,14 @@ import { createMaze } from './maze';
 const canvasDrawers = new drawers();
 let handleMaze = new createMaze();
 
-
 let currentXTilt: number = 0;
 let currentYTilt: number = 0;
 
-let hint: HTMLElement = <HTMLElement>document.querySelector("#showHint")
-let popUPtab: HTMLElement = <HTMLElement>document.querySelector('.popUpTab')
-let title: HTMLElement = <HTMLElement>document.querySelector('.title');
-let personalTime: HTMLElement = <HTMLElement>document.querySelector('.yourTime');
-const restartGame: HTMLElement = <HTMLElement>document.querySelector('.restartBtn');
+let hint: HTMLDivElement = <HTMLDivElement>document.querySelector("#showHint")
+let popUPtab: HTMLDivElement = <HTMLDivElement>document.querySelector('.popUpTab')
+let title: HTMLDivElement = <HTMLDivElement>document.querySelector('.title');
+let personalTime: HTMLDivElement = <HTMLDivElement>document.querySelector('.yourTime');
+const restartGame: HTMLDivElement = <HTMLDivElement>document.querySelector('.restartBtn');
 
 restartGame.onclick = () => {
     hint.innerHTML = "Hint: get the key";
@@ -55,7 +54,7 @@ class GameObject {
 class Ball extends GameObject {
     velocity: { vertical: number, horizontal: number };
     constructor(x = 0, y = 0) {
-        super("Ball", x, y); //wywołuje konstruktor game object
+        super("Ball", x, y); // Calls game object constructor
         this.velocity = { vertical: 0, horizontal: 0 };
     }
 }
@@ -89,6 +88,7 @@ class Game {
     }
 
     randGameObjPosition(ballX: number, ballY: number, keyX: number, keyY: number, holeX: number, holeY: number) {
+        // Randomly assign position of ball key and hole
         switch (Math.floor(Math.random() * 6) + 1) {
             case 1:
                 this.ball = new Ball(ballX, ballY);
@@ -155,9 +155,27 @@ class Game {
     }
 
     movePlayer() {
-        let futureX: number = this.ball.x + this.ball.velocity.horizontal / 4;
-        let futureY: number = this.ball.y + this.ball.velocity.vertical / 4;
-        //can move inside canvas
+        let futureX: number;
+        let futureY: number;
+
+        // Controlls ball velocity
+        if (this.ball.velocity.horizontal > -10 && this.ball.velocity.horizontal < 10) {
+            futureX = this.ball.x + this.ball.velocity.horizontal / 4;
+        } else if (this.ball.velocity.horizontal < -20 && this.ball.velocity.horizontal > 20) {
+            futureX = this.ball.x + this.ball.velocity.horizontal / 2;
+        } else {
+            futureX = this.ball.x + this.ball.velocity.horizontal / 3;
+        }
+
+        if (this.ball.velocity.vertical > -10 && this.ball.velocity.vertical < 10) {
+            futureY = this.ball.y + this.ball.velocity.vertical / 4;
+        } else if (this.ball.velocity.vertical < -18 && this.ball.velocity.vertical > 18) {
+            futureY = this.ball.y + this.ball.velocity.vertical / 2;
+        } else {
+            futureY = this.ball.y + this.ball.velocity.vertical / 3;
+        }
+
+        // Can move inside canvas
         if (canvasDrawers.canMoveX(futureX) && canvasDrawers.canMoveY(futureY)) {
             this.ball.x = futureX;
             this.ball.y = futureY;
@@ -175,9 +193,7 @@ class Game {
     overlapsKey() {
         if (canvasDrawers.isOverlapping(this.ball, this.key)) {
             this.keyObtained = true;
-            let hint: HTMLElement = <HTMLElement>document.querySelector("#showHint");
             hint.innerHTML = "Head towards the exit";
-            //document.getElementById("showHint").innerHTML = "Head towards the exit";
         }
     }
 
@@ -196,10 +212,23 @@ class Game {
     }
 
     checkGameOverCondidtions() {
-        let mazeX: number = Math.floor((this.ball.x + (this.ball.velocity.horizontal)) / canvasDrawers.objectSize);
-        let mazeY: number = Math.floor((this.ball.y + (this.ball.velocity.vertical)) / canvasDrawers.objectSize);
-        //console.log('your cords ' + mazeX + ' , ' + mazeY)
-        //console.log(mazeY)
+        let mazeX: number = Math.floor((this.ball.x + this.ball.velocity.horizontal) / canvasDrawers.objectSize);
+        let mazeY: number = Math.floor((this.ball.y + this.ball.velocity.vertical) / canvasDrawers.objectSize);
+
+        // Check if ball is in wall
+        if (this.ball.velocity.horizontal > -10 && this.ball.velocity.horizontal < 10) {
+            mazeX = Math.floor((this.ball.x + (canvasDrawers.half / 10 * this.ball.velocity.horizontal)) / canvasDrawers.objectSize);
+        }
+        else if (this.ball.velocity.horizontal < -20 && this.ball.velocity.horizontal > 20) {
+            mazeX = Math.floor((this.ball.x + (this.ball.velocity.horizontal / 4)) / canvasDrawers.objectSize);
+        }
+
+        if (this.ball.velocity.vertical > -10 && this.ball.velocity.vertical < 10) {
+            mazeY = Math.floor((this.ball.y + (canvasDrawers.half / 10 * this.ball.velocity.vertical)) / canvasDrawers.objectSize);
+        }
+        else if (this.ball.velocity.vertical < -20 && this.ball.velocity.vertical > 20) {
+            mazeY = Math.floor((this.ball.y + (this.ball.velocity.vertical / 4)) / canvasDrawers.objectSize);
+        }
 
         if (handleMaze.maze[mazeY][mazeX] === 1) {
             clearInterval(this.gameLoop);
@@ -211,6 +240,7 @@ class Game {
     writeTime() {
         const endTime: number = new Date(this.startTime).getTime() + 200 * 1000;
         const now: number = new Date().getTime();
+
         if (endTime - now > 0) {
             let timer: HTMLElement = <HTMLElement>document.querySelector("#showTimer");
             timer.innerHTML = "Remaining time: " + ((endTime - now) / 1000).toFixed(1) + "s";
