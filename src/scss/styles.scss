@@ -1,0 +1,73 @@
+@import 'vars';
+
+body{
+  margin-top: 0;
+  margin-left: 0;
+  background-color: $bgColor;
+  font-family: $font;
+}
+.game{
+  width:100%;
+  position: absolute;
+  z-index: 1;
+}
+canvas {
+  display: block;
+  margin: 0 auto;
+  border: 1px solid black;
+  background: white;
+}
+img {
+  display: none;
+}
+
+.popUpTab{
+  position: absolute;
+  background-color: $bgColor;
+  height: 110%;
+  width: 100%;
+  z-index: 2;
+  display: none;
+}
+.title{
+  display: table;
+  margin: 18% auto 10%;
+  font-size: 50px;
+}
+.yourTime{
+  display: table;
+  margin: 2% auto;
+  font-size: 35px;
+}
+.restartBtn{
+  display: table;
+  margin: 0 auto;
+  padding: 20px 35px 20px 35px;
+  border-radius: 10px;
+  color: $btnFontColor;
+  background-color: $btnColor;
+  box-shadow: 0 9px $btnShadowColor;
+  cursor: pointer;
+  
+
+  &:hover {
+    background-color: $btnHoverColor}
+  
+  &:active {
+    background-color: $btnHoverColor;
+    box-shadow: 0 5px $btnOnClickShadowColor;
+    transform: translateY(4px);
+  }
+}
+
+
+@media (max-width: 1000px) { 
+  .wrapper{
+    margin-top: 30%;
+  }
+}
+@media (max-width: 600px) { 
+  .wrapper{
+    margin-top: 60%;
+  }
+}

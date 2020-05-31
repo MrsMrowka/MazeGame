@@ -1,22 +1,26 @@
-import '../scss/stylesheet.scss';
+import '../scss/styles.scss';
+
 import { getTiltDirection } from './units';
 import { drawers } from './drawers';
 import { createMaze } from './maze';
 
 const canvasDrawers = new drawers();
-const handleMaze = new createMaze();
+let handleMaze = new createMaze();
 
 
 let currentXTilt: number = 0;
 let currentYTilt: number = 0;
 
+let hint: HTMLElement = <HTMLElement>document.querySelector("#showHint")
 let popUPtab: HTMLElement = <HTMLElement>document.querySelector('.popUpTab')
 let title: HTMLElement = <HTMLElement>document.querySelector('.title');
 let personalTime: HTMLElement = <HTMLElement>document.querySelector('.yourTime');
-const restartGame: HTMLElement = <HTMLElement>document.querySelector('.restart');
+const restartGame: HTMLElement = <HTMLElement>document.querySelector('.restartBtn');
 
 restartGame.onclick = () => {
+    hint.innerHTML = "Hint: get the key";
     popUPtab.style.display = "none";
+    handleMaze = new createMaze();
     const game = new Game();
 }
 
@@ -233,4 +237,3 @@ class Game {
 }
 
 const game = new Game();
-console.log(handleMaze.maze)

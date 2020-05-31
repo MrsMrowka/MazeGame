@@ -1,9 +1,9 @@
 export class drawers {
     canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myCanvas");
     ctx: CanvasRenderingContext2D = <CanvasRenderingContext2D>this.canvas.getContext("2d");
-    boardWidth: number = this.canvas.width = 450;
-    boardHeight: number = this.canvas.height = 720;
-    objectSize: number = 45;
+    boardWidth: number = this.canvas.width = 500;
+    boardHeight: number = this.canvas.height = 800;
+    objectSize: number = 50;
     half: number = this.objectSize / 2;
 
     clearBoard() {

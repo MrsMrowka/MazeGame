@@ -106,8 +106,8 @@ export class createMaze {
         ]
 
         // loop to randomly assign playable path
-        // this.pathRand = Math.floor(Math.random() * 4) + 1;
-        this.pathRand = 1;
+        this.pathRand = Math.floor(Math.random() * 4) + 1;
+
         for (let i = 0; i < this.maze.length; i++) {
             for (let j = 0; j < this.maze[i].length; j++) {
                 switch (this.pathRand) {
