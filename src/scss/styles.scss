@@ -3,7 +3,7 @@
 body{
   margin-top: 0;
   margin-left: 0;
-  background-color: $bgColor;
+  background-image: $bgImg;
   font-family: $font;
 }
 .game{
@@ -23,7 +23,7 @@ img {
 
 .popUpTab{
   position: absolute;
-  background-color: $bgColor;
+  background-image: $bgImg;
   height: 110%;
   width: $fullScreen;
   z-index: 2;

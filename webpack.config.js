@@ -32,6 +32,10 @@ module.exports = {
         exclude: /node_modules/
       },
       {
+        test: /\.(png|jpg)$/,
+        loader: 'url-loader'
+      },
+      {
         test: /.s[ac]ss$/i,
         use: [
           // Creates style nodes from JS strings
