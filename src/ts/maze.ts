@@ -1,11 +1,10 @@
-
 import { drawers } from './drawers';
 const canvasDrawers = new drawers();
 
 
 export class createMaze {
     maze: number[][];
-    pathRand: number;
+    randPlayablePath: number;
     constructor() {
         this.maze = new Array(16);
 
@@ -106,11 +105,11 @@ export class createMaze {
         ]
 
         // Loop to randomly assign playable path
-        this.pathRand = Math.floor(Math.random() * 4) + 1;
+        this.randPlayablePath = Math.floor(Math.random() * 4) + 1;
 
         for (let i = 0; i < this.maze.length; i++) {
             for (let j = 0; j < this.maze[i].length; j++) {
-                switch (this.pathRand) {
+                switch (this.randPlayablePath) {
                     case 1:
                         if (path1[i][j] == 0) {
                             this.maze[i][j] = 0;
@@ -145,4 +144,41 @@ export class createMaze {
             }
         }
     }
+}
+
+//Emuns holding positions where ball, kwy and hole should be drawn on each playable path
+export enum path1ObjPositions {
+    ballX = 5 * canvasDrawers.objectSize,
+    ballY = 8 * canvasDrawers.objectSize,
+    keyX = canvasDrawers.objectSize,
+    keyY = canvasDrawers.objectSize,
+    holeX = 9 * canvasDrawers.objectSize,
+    holeY = 15 * canvasDrawers.objectSize
+}
+
+export enum path2ObjPositions {
+    ballX = 6 * canvasDrawers.objectSize,
+    ballY = 2 * canvasDrawers.objectSize,
+    keyX = canvasDrawers.objectSize,
+    keyY = 11 * canvasDrawers.objectSize,
+    holeX = 7 * canvasDrawers.objectSize,
+    holeY = 13 * canvasDrawers.objectSize
+}
+
+export enum path3ObjPositions {
+    ballX = canvasDrawers.objectSize,
+    ballY = canvasDrawers.objectSize,
+    keyX = 6 * canvasDrawers.objectSize,
+    keyY = 7 * canvasDrawers.objectSize,
+    holeX = 3 * canvasDrawers.objectSize,
+    holeY = 12 * canvasDrawers.objectSize
+}
+
+export enum path4ObjPositions {
+    ballX = canvasDrawers.objectSize,
+    ballY = 15 * canvasDrawers.objectSize,
+    keyX = 8 * canvasDrawers.objectSize,
+    keyY = 10 * canvasDrawers.objectSize,
+    holeX = 5 * canvasDrawers.objectSize,
+    holeY = 2 * canvasDrawers.objectSize
 }

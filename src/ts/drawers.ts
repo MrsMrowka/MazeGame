@@ -1,22 +1,38 @@
+import { canvasDimensions } from './units';
+
 export class drawers {
     canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myCanvas");
     ctx: CanvasRenderingContext2D = <CanvasRenderingContext2D>this.canvas.getContext("2d");
-    boardWidth: number = this.canvas.width = (window.innerWidth < 350 ? 250 : window.innerWidth < 450 ? 350 : window.innerWidth < 500 ? 450 : 500);
-    boardHeight: number = this.canvas.height = (window.innerWidth < 350 ? 400 : window.innerWidth < 450 ? 560 : window.innerWidth < 500 ? 720 : 800);
-    objectSize: number = (window.innerWidth < 350 ? 25 : window.innerWidth < 450 ? 35 : window.innerWidth < 500 ? 45 : 50);
+
+    boardWidth: number = this.canvas.width = (window.innerWidth < 350 ?
+        canvasDimensions.screen350.width : window.innerWidth < 450 ?
+            canvasDimensions.screen450.width : window.innerWidth < 500 ?
+                canvasDimensions.screen500.width : canvasDimensions.default.width);
+
+    boardHeight: number = this.canvas.height = (window.innerWidth < 350 ?
+        canvasDimensions.screen350.height : window.innerWidth < 450 ?
+            canvasDimensions.screen450.height : window.innerWidth < 500 ?
+                canvasDimensions.screen500.height : canvasDimensions.default.height);
+
+    objectSize: number = (window.innerWidth < 350 ?
+        canvasDimensions.screen350.objectSize : window.innerWidth < 450 ?
+            canvasDimensions.screen450.objectSize : window.innerWidth < 500 ?
+                canvasDimensions.screen450.objectSize : canvasDimensions.default.objectSize);
+
     half: number = this.objectSize / 2;
-    keyImg: HTMLImageElement = new Image();
-    lockImg: HTMLImageElement = new Image();
-    holeImg: HTMLImageElement = new Image();
-    wallImg: HTMLImageElement = new Image();
+    image = {
+        key: new Image(),
+        lock: new Image(),
+        hole: new Image(),
+        wall: new Image(),
+    }
 
 
     constructor() {
-        this.keyImg.src = '../src/img/key.png'
-        this.lockImg.src = '../src/img/lock.png'
-        this.holeImg.src = '../src/img/hole.png'
-        this.wallImg.src = '../src/img/brick.png'
-
+        this.image.key.src = '../src/img/key.png'
+        this.image.lock.src = '../src/img/lock.png'
+        this.image.hole.src = '../src/img/hole.png'
+        this.image.wall.src = '../src/img/brick.png'
     }
 
     clearBoard() {
@@ -33,18 +49,18 @@ export class drawers {
 
     drawHole(x: number, y: number, ready: boolean) {
         if (ready) {
-            this.ctx.drawImage(this.holeImg, x - this.half, y - this.half, this.objectSize, this.objectSize);
+            this.ctx.drawImage(this.image.hole, x - this.half, y - this.half, this.objectSize, this.objectSize);
         } else {
-            this.ctx.drawImage(this.lockImg, x - this.half, y - this.half, this.objectSize, this.objectSize);
+            this.ctx.drawImage(this.image.lock, x - this.half, y - this.half, this.objectSize, this.objectSize);
         }
     }
 
     drawWall(x: number, y: number) {
-        this.ctx.drawImage(this.wallImg, x, y, this.objectSize, this.objectSize);
+        this.ctx.drawImage(this.image.wall, x, y, this.objectSize, this.objectSize);
     }
 
     drawKey(x: number, y: number) {
-        this.ctx.drawImage(this.keyImg, x - this.half, y - this.half, this.objectSize, this.objectSize);
+        this.ctx.drawImage(this.image.key, x - this.half, y - this.half, this.objectSize, this.objectSize);
     }
 
     canMoveX(x: number) {

@@ -2,7 +2,7 @@ import '../scss/styles.scss';
 
 import { getTiltDirection } from './units';
 import { drawers } from './drawers';
-import { createMaze } from './maze';
+import { createMaze, path1ObjPositions, path2ObjPositions, path3ObjPositions, path4ObjPositions } from './maze';
 
 const canvasDrawers = new drawers();
 let handleMaze = new createMaze();
@@ -71,81 +71,56 @@ class Game {
         this.startTime = new Date().getTime();
         this.keyObtained = false;
         // Randomly assing playable path
-        switch (handleMaze.pathRand) {
+        switch (handleMaze.randPlayablePath) {
             case 1:
-                this.randGameObjPosition(5 * canvasDrawers.objectSize, 8 * canvasDrawers.objectSize, canvasDrawers.objectSize, canvasDrawers.objectSize, 9 * canvasDrawers.objectSize, 15 * canvasDrawers.objectSize);
+                this.randGameObjPosition(path1ObjPositions);
                 break;
             case 2:
-                this.randGameObjPosition(6 * canvasDrawers.objectSize, 2 * canvasDrawers.objectSize, canvasDrawers.objectSize, 11 * canvasDrawers.objectSize, 7 * canvasDrawers.objectSize, 13 * canvasDrawers.objectSize)
+                this.randGameObjPosition(path2ObjPositions)
                 break;
             case 3:
-                this.randGameObjPosition(canvasDrawers.objectSize, canvasDrawers.objectSize, 6 * canvasDrawers.objectSize, 7 * canvasDrawers.objectSize, 3 * canvasDrawers.objectSize, 12 * canvasDrawers.objectSize)
+                this.randGameObjPosition(path3ObjPositions)
                 break;
             case 4:
-                this.randGameObjPosition(canvasDrawers.objectSize, 15 * canvasDrawers.objectSize, 8 * canvasDrawers.objectSize, 10 * canvasDrawers.objectSize, 5 * canvasDrawers.objectSize, 2 * canvasDrawers.objectSize)
+                this.randGameObjPosition(path4ObjPositions)
                 break;
         }
         this.gameLoop = setInterval(() => this.render(), 100);
     }
 
-    randGameObjPosition(ballX: number, ballY: number, keyX: number, keyY: number, holeX: number, holeY: number) {
+    randGameObjPosition(objPositions: any) {
         // Randomly assign position of ball key and hole
         switch (Math.floor(Math.random() * 6) + 1) {
             case 1:
-                this.ball = new Ball(ballX, ballY);
-                this.key = new GameObject(
-                    "Key", keyX, keyY
-                );
-                this.hole = new GameObject(
-                    "Hole", holeX, holeY
-                );
+                this.ball = new Ball(objPositions.ballX, objPositions.ballY);
+                this.key = new GameObject("Key", objPositions.keyX, objPositions.keyY);
+                this.hole = new GameObject("Hole", objPositions.holeX, objPositions.holeY);
                 break;
             case 2:
-                this.ball = new Ball(ballX, ballY);
-                this.key = new GameObject(
-                    "Key", holeX, holeY
-                );
-                this.hole = new GameObject(
-                    "Hole", keyX, keyY
-                );
+                this.ball = new Ball(objPositions.ballX, objPositions.ballY);
+                this.key = new GameObject("Key", objPositions.holeX, objPositions.holeY);
+                this.hole = new GameObject("Hole", objPositions.keyX, objPositions.keyY);
                 break;
             case 3:
-                this.ball = new Ball(keyX, keyY);
-                this.key = new GameObject(
-                    "Key", ballX, ballY
-                );
-                this.hole = new GameObject(
-                    "Hole", holeX, holeY
-                );
+                this.ball = new Ball(objPositions.keyX, objPositions.keyY);
+                this.key = new GameObject("Key", objPositions.ballX, objPositions.ballY);
+                this.hole = new GameObject("Hole", objPositions.holeX, objPositions.holeY);
                 break;
             case 4:
-                this.ball = new Ball(holeX, holeY);
-                this.key = new GameObject(
-                    "Key", ballX, ballY
-                );
-                this.hole = new GameObject(
-                    "Hole", keyX, keyY
-                );
+                this.ball = new Ball(objPositions.holeX, objPositions.holeY);
+                this.key = new GameObject("Key", objPositions.ballX, objPositions.ballY);
+                this.hole = new GameObject("Hole", objPositions.keyX, objPositions.keyY);
                 break;
             case 5:
-                this.ball = new Ball(keyX, keyY);
-                this.key = new GameObject(
-                    "Key", holeX, holeY
-                );
-                this.hole = new GameObject(
-                    "Hole", ballX, ballY
-                );
+                this.ball = new Ball(objPositions.keyX, objPositions.keyY);
+                this.key = new GameObject("Key", objPositions.holeX, objPositions.holeY);
+                this.hole = new GameObject("Hole", objPositions.ballX, objPositions.ballY);
                 break;
             case 6:
-                this.ball = new Ball(holeX, holeY);
-                this.key = new GameObject(
-                    "Key", keyX, keyY
-                );
-                this.hole = new GameObject(
-                    "Hole", ballX, ballY
-                );
+                this.ball = new Ball(objPositions.holeX, objPositions.holeY);
+                this.key = new GameObject("Key", objPositions.keyX, objPositions.keyY);
+                this.hole = new GameObject("Hole", objPositions.ballX, objPositions.ballY);
                 break;
-
         }
     }
 
