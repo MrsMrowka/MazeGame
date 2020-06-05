@@ -5,6 +5,19 @@ export class drawers {
     boardHeight: number = this.canvas.height = (window.innerWidth < 350 ? 400 : window.innerWidth < 450 ? 560 : window.innerWidth < 500 ? 720 : 800);
     objectSize: number = (window.innerWidth < 350 ? 25 : window.innerWidth < 450 ? 35 : window.innerWidth < 500 ? 45 : 50);
     half: number = this.objectSize / 2;
+    keyImg: HTMLImageElement = new Image();
+    lockImg: HTMLImageElement = new Image();
+    holeImg: HTMLImageElement = new Image();
+    wallImg: HTMLImageElement = new Image();
+
+
+    constructor() {
+        this.keyImg.src = '../src/img/key.png'
+        this.lockImg.src = '../src/img/lock.png'
+        this.holeImg.src = '../src/img/hole.png'
+        this.wallImg.src = '../src/img/brick.png'
+
+    }
 
     clearBoard() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -13,30 +26,25 @@ export class drawers {
     drawPlayer(x: number, y: number) {
         this.ctx.beginPath();
         this.ctx.arc(x, y, this.half / 2, 0, 2 * Math.PI);
-        this.ctx.fillStyle = "purple";
+        this.ctx.fillStyle = "darkred";
         this.ctx.fill();
         this.ctx.closePath();
     }
 
     drawHole(x: number, y: number, ready: boolean) {
-        this.ctx.beginPath();
-        this.ctx.arc(x, y, this.half, 0, 2 * Math.PI);
-        this.ctx.fillStyle = ready ? "gold" : "red";
-        this.ctx.fill();
-        this.ctx.closePath();
+        if (ready) {
+            this.ctx.drawImage(this.holeImg, x - this.half, y - this.half, this.objectSize, this.objectSize);
+        } else {
+            this.ctx.drawImage(this.lockImg, x - this.half, y - this.half, this.objectSize, this.objectSize);
+        }
     }
 
     drawWall(x: number, y: number) {
-        this.ctx.beginPath();
-        this.ctx.fillStyle = "black";
-        this.ctx.fillRect(x, y, this.objectSize, this.objectSize);
-        this.ctx.fill();
-        this.ctx.closePath();
+        this.ctx.drawImage(this.wallImg, x, y, this.objectSize, this.objectSize);
     }
 
     drawKey(x: number, y: number) {
-        let image = <HTMLCanvasElement>document.getElementById("key");
-        this.ctx.drawImage(image, x - this.half, y - this.half, this.objectSize, this.objectSize);
+        this.ctx.drawImage(this.keyImg, x - this.half, y - this.half, this.objectSize, this.objectSize);
     }
 
     canMoveX(x: number) {

@@ -14,11 +14,8 @@ body{
 canvas {
   display: block;
   margin: 0 auto;
-  border: 1px solid black;
-  background: white;
-}
-img {
-  display: none;
+  border: 5px solid $canvasBorder;
+  background: $canvasBg;
 }
 
 .popUpTab{
