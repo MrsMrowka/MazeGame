@@ -3,23 +3,10 @@ import { canvasDimensions } from './units';
 export class drawers {
     canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myCanvas");
     ctx: CanvasRenderingContext2D = <CanvasRenderingContext2D>this.canvas.getContext("2d");
-
-    boardWidth: number = this.canvas.width = (window.innerWidth < 350 ?
-        canvasDimensions.screen350.width : window.innerWidth < 450 ?
-            canvasDimensions.screen450.width : window.innerWidth < 500 ?
-                canvasDimensions.screen500.width : canvasDimensions.default.width);
-
-    boardHeight: number = this.canvas.height = (window.innerWidth < 350 ?
-        canvasDimensions.screen350.height : window.innerWidth < 450 ?
-            canvasDimensions.screen450.height : window.innerWidth < 500 ?
-                canvasDimensions.screen500.height : canvasDimensions.default.height);
-
-    objectSize: number = (window.innerWidth < 350 ?
-        canvasDimensions.screen350.objectSize : window.innerWidth < 450 ?
-            canvasDimensions.screen450.objectSize : window.innerWidth < 500 ?
-                canvasDimensions.screen450.objectSize : canvasDimensions.default.objectSize);
-
-    half: number = this.objectSize / 2;
+    boardWidth: number;
+    boardHeight: number;
+    objectSize: number;
+    half: number;
     image = {
         key: new Image(),
         lock: new Image(),
@@ -27,8 +14,29 @@ export class drawers {
         wall: new Image(),
     }
 
-
     constructor() {
+        if (window.innerWidth < 350) {
+            this.boardWidth = this.canvas.width = canvasDimensions.screen350.width;
+            this.boardHeight = this.canvas.height = canvasDimensions.screen350.height;
+            this.objectSize = canvasDimensions.screen350.objectSize;
+        }
+        else if (window.innerWidth < 450) {
+            this.boardWidth = this.canvas.width = canvasDimensions.screen450.width;
+            this.boardHeight = this.canvas.height = canvasDimensions.screen450.height;
+            this.objectSize = canvasDimensions.screen450.objectSize;
+        }
+        else if (window.innerWidth < 500) {
+            this.boardWidth = this.canvas.width = canvasDimensions.screen500.width;
+            this.boardHeight = this.canvas.height = canvasDimensions.screen500.height;
+            this.objectSize = canvasDimensions.screen500.objectSize;
+        }
+        else {
+            this.boardWidth = this.canvas.width = canvasDimensions.default.width;
+            this.boardHeight = this.canvas.height = canvasDimensions.default.height;
+            this.objectSize = canvasDimensions.default.objectSize;
+        }
+        this.half = this.objectSize / 2;
+
         this.image.key.src = '../src/img/key.png'
         this.image.lock.src = '../src/img/lock.png'
         this.image.hole.src = '../src/img/hole.png'
@@ -36,7 +44,7 @@ export class drawers {
     }
 
     clearBoard() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.clearRect(0, 0, this.boardWidth, this.boardHeight);
     }
 
     drawPlayer(x: number, y: number) {
