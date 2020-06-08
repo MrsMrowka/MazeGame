@@ -89,8 +89,9 @@ class Game {
     }
 
     randGameObjPosition(objPositions: any) {
+        let randObjPosition = Math.floor(Math.random() * 6) + 1;
         // Randomly assign position of ball key and hole
-        switch (Math.floor(Math.random() * 6) + 1) {
+        switch (randObjPosition) {
             case 1:
                 this.ball = new Ball(objPositions.ballX, objPositions.ballY);
                 this.key = new GameObject("Key", objPositions.keyX, objPositions.keyY);
